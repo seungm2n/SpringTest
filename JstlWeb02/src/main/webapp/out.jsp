@@ -7,13 +7,17 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JSTL - redirect</title>
+<title>JSTL - out</title>
 </head>
 <body>
-	<c:set var="requestVar" value="EzenIt" scope="request" />
-	<c:redirect url="./inc/otherpage.jsp">
-		<c:param name="user_param1" value="학원" />
-		<c:param name="user_param2" value="이젠IT" />
-	</c:redirect>
+	<c:set var="iTag">
+		i 태그는 <i>기울임</i>을 표현합니다.
+	</c:set>
+
+	<h4>기본 사용</h4>
+	<c:out value="${iTag}" />
+
+	<h4>escapeXml 속성</h4>
+	<c:out value="${iTag}" escapeXml="false" />
 </body>
 </html>
