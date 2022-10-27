@@ -11,17 +11,32 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
-@Component("engine") class Engine {} //<bean id="engine" class="kr.co.together6.engine" />과 동일
-@Component class SuperEngine extends Engine{}
-@Component class turboEngine extends Engine{}
-@Component class Door {}
+@Component("engine")
+class Engine {
+} // <bean id="engine" class="kr.co.together6.engine" />과 동일
+
+@Component
+class SuperEngine extends Engine {
+}
+
+@Component
+class turboEngine extends Engine {
+}
+
+@Component
+class Door {
+}
+
 @Component
 class Car {
-	@Value("blue") String color;
-	@Value("500") int oil;
+	@Value("blue")
+	String color;
+	@Value("500")
+	int oil;
 	@Resource(name = "turboEngine")
-	Engine engine;			//byType - 타입으로 먼저검색, 여러개면 이름으로 검색 - engine, superEngine, turboEngine
-	@Autowired Door[] doors;
+	Engine engine; // byType - 타입으로 먼저검색, 여러개면 이름으로 검색 - engine, superEngine, turboEngine
+	@Autowired
+	Door[] doors;
 
 	public Car() {
 	} // 기본 생성자를 꼭 만들어줘야함.
@@ -63,36 +78,11 @@ public class SpringDITest7 {
 	public static void main(String[] args) {
 		ApplicationContext ac = new GenericXmlApplicationContext("config7.xml");
 		Car car = (Car) ac.getBean("car");
-		
+
 		Engine engine = (Engine) ac.getBean("turboEngine");
-		
+
 		System.out.println("car = " + car);
 		System.out.println("engine = " + engine);
-		
+
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
