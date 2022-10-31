@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <c:set var="loginout" value="${sessionScope.id == null ? 'Login' : 'Logout'} " />
-<c:set var="loginoutlink" value="'${sessionScope.id == null ? '/login/login' : '/login/logout' }'" />
+<c:set var="loginoutlink" value="${sessionScope.id == null ? '/login/login' : '/login/logout' }" />
 <!DOCTYPE html>
 <html>
 <head>
