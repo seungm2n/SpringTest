@@ -29,7 +29,7 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 
-<!-- 한글 변환 필터 -->
+	<!-- 한글 변환 필터 -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -42,7 +42,7 @@
 			<param-value>true</param-value>
 		</init-param>
 	</filter>
-	
+
 	<filter-mapping>
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
