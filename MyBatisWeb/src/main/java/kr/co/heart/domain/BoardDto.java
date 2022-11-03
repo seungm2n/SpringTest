@@ -111,8 +111,7 @@ public class BoardDto {
 	@Override
 	public String toString() {
 		return "BoardDto [bno=" + bno + ", title=" + title + ", content=" + content + ", writer=" + writer
-				+ ", view_cnt=" + view_cnt + ", comment_cnt=" + comment_cnt + ", reg_date=" + reg_date + ", up_date="
-				+ "]";
+				+ ", view_cnt=" + view_cnt + ", comment_cnt=" + comment_cnt + ", reg_date=" + reg_date + "]";
 	}
 
 }
