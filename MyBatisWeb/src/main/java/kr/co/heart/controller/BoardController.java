@@ -22,6 +22,22 @@ import kr.co.heart.service.BoardService;
 @RequestMapping("/board")
 public class BoardController {
 
+	@GetMapping("/read")
+	public String read(Integer bno, Integer page, Integer pageSize, Model m) {
+		try {
+			BoardDto boardDto = boardService.read(bno);
+			//m.addAttribute("boardDto", boardDto);			//아래 문장과 동일
+			m.addAttribute(boardDto);
+			m.addAttribute("page", page);
+			m.addAttribute("pageSize", pageSize);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "redirect:/board/list";
+		}
+		return "board";
+	}
+
 	@Autowired
 	BoardService boardService;
 
@@ -35,29 +51,32 @@ public class BoardController {
 			return "redirect:/login/login?toURL= " + request.getRequestURL();
 
 		try {
-			
+
 //			if(page==null) page=1;
 //			if(pageSize==null) pageSize=10;
-			
+
 			int totalCnt = boardService.getCount();
 			m.addAttribute("totalCnt", totalCnt);
-			
+
 			PageResolver pageResolver = new PageResolver(totalCnt, page, pageSize);
 			if(page < 0 || page > pageResolver.getTotalCnt()) 
 				page = 1;
 			if(pageSize < 0  || pageSize > 50)
 				pageSize = 10;
-			
+
 			
 			Map map = new HashMap();
 			map.put("offset", (page-1)*pageSize);
 			map.put("pageSize", pageSize);
-			
+
 			List<BoardDto> list = boardService.getPage(map);
 			m.addAttribute("list", list);
 			m.addAttribute("pr", pageResolver);
 			
-			
+			m.addAttribute("page", page);
+			m.addAttribute("pageSize", pageSize);
+
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

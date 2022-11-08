@@ -9,5 +9,6 @@ public interface BoardService {
 
 	List<BoardDto> getPage(Map map) throws Exception;
 	int getCount() throws Exception;
+	BoardDto read(Integer bno) throws Exception;
 	
 }
