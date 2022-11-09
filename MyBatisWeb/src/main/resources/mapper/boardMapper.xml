@@ -19,6 +19,11 @@
 		delete from t_board
 	</delete>
 
+	<delete id="delete" parameterType="Map">
+		delete from t_board where bno = #{bno} and writer = #{writer};
+	</delete>
+
+
 	<insert id="insert" parameterType="BoardDto">
 		insert into t_board
 			(title, "content", writer)
@@ -37,12 +42,16 @@
 	</select>
 
 	<update id="increaseViewCnt" parameterType="int">
-	update t_board 
-	set view_cnt = view_cnt + 1
-	where bno = ${bno}
+		update t_board 
+		set view_cnt = view_cnt + 1
+		where bno = #{bno}
 	</update>
 
-
+	<update id="update" parameterType="BoardDto">
+		update public.t_board
+		set title = #{title}, content = #{content}, up_date=now()
+		where bno = #{bno} and writer = #{writer}
+	</update>
 
 </mapper>
 

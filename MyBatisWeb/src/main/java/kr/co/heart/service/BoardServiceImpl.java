@@ -35,5 +35,24 @@ public class BoardServiceImpl implements BoardService {
 		
 		return boardDto;
 	}
+
+	@Override
+	public int remove(Integer bno, String writer) throws Exception {
+		// TODO Auto-generated method stub
+		return boardDao.delete(bno, writer);
+	}
+
+	@Override
+	public int write(BoardDto boardDto) throws Exception {
+		
+		return boardDao.insert(boardDto);
+		//throw new Exception();				//강제 예외처리
+	}
+
+	@Override
+	public int modify(BoardDto boardDto) throws Exception {
+		// TODO Auto-generated method stub
+		return boardDao.update(boardDto);
+	}
 	
 }
