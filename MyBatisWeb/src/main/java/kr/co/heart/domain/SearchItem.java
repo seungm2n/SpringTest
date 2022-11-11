@@ -1,26 +1,46 @@
 package kr.co.heart.domain;
 
+import static java.util.Objects.requireNonNullElse;
+import static java.lang.Math.*;
+
+import org.springframework.web.util.UriComponentsBuilder;
+
 public class SearchItem {
 
 	public static final int DEFAULT_PAGE_SIZE = 10;
+	public static final int MIN_PAGE_SIZE = 5;
+	public static final int MAX_PAGE_SIZE = 50;
 
 	private Integer page = 1;
 	private Integer pageSize = DEFAULT_PAGE_SIZE;
 	private String option = "";
 	private String keyword = "";
 	private Integer offset;
-	
-	
+
 	public SearchItem() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public SearchItem(Integer page, Integer pageSize, String option, String keyword, Integer offset) {
-		//super();
+	public SearchItem(Integer page, Integer pageSize) {
+		this(page, pageSize, "", "");
+	}
+
+	public SearchItem(Integer page, Integer pageSize, String option, String keyword) {
+		// super();
 		this.page = page;
 		this.pageSize = pageSize;
 		this.option = option;
 		this.keyword = keyword;
+	}
+
+	public String getQueryString() {
+		return getQueryString(page);
+	}
+
+	// ?page=10&pageSize=10&option=A&keyword=title
+	public String getQueryString(Integer page) {
+		return UriComponentsBuilder.newInstance().queryParam("page", page).queryParam("pageSize", pageSize)
+				.queryParam("option", option).queryParam("keyword", keyword).build().toString();
 	}
 
 	public Integer getPage() {
@@ -36,7 +56,10 @@ public class SearchItem {
 	}
 
 	public void setPageSize(Integer pageSize) {
-		this.pageSize = pageSize;
+		this.pageSize = requireNonNullElse(pageSize, DEFAULT_PAGE_SIZE);
+
+		// MIN_PAGE_SIZE <= pageSize <= MAX_PAGE_SIZE
+		this.pageSize = max(MIN_PAGE_SIZE, min(this.pageSize, MAX_PAGE_SIZE));
 	}
 
 	public String getOption() {
@@ -56,11 +79,7 @@ public class SearchItem {
 	}
 
 	public Integer getOffset() {
-		return offset;
-	}
-
-	public void setOffset(Integer offset) {
-		this.offset = offset;
+		return (page - 1) * pageSize;
 	}
 
 	@Override
@@ -68,6 +87,5 @@ public class SearchItem {
 		return "SearchItem [page=" + page + ", pageSize=" + pageSize + ", option=" + option + ", keyword=" + keyword
 				+ ", offset=" + offset + "]";
 	}
-	
-	
+
 }

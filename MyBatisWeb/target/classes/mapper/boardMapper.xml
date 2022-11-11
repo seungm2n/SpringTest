@@ -6,7 +6,8 @@
 <mapper namespace="kr.co.heart.dao.BoardMapper">
 
 	<sql id="selectFromBoard">
-		SELECT bno, title, content, writer, view_cnt, comment_cnt, reg_date
+		SELECT bno, title, content, writer, view_cnt, comment_cnt,
+		reg_date
 		FROM t_board
 	</sql>
 
@@ -14,59 +15,65 @@
 		<include refid="selectFromBoard" />
 		where bno = #{bno}
 	</select>
-	
+
 	<delete id="deleteAll">
 		delete from t_board
 	</delete>
 
 	<delete id="delete" parameterType="Map">
-		delete from t_board where bno = #{bno} and writer = #{writer};
+		delete from t_board where bno
+		= #{bno} and writer = #{writer};
 	</delete>
 
 
 	<insert id="insert" parameterType="BoardDto">
 		insert into t_board
-			(title, "content", writer)
+		(title, "content", writer)
 		values
-			(#{title}, #{content}, #{writer})
+		(#{title}, #{content}, #{writer})
 	</insert>
 
 	<select id="count" resultType="int">
 		select count(*) from t_board
 	</select>
 
-	<select id="selectPage" parameterType="map" resultType="BoardDto">
+	<select id="selectPage" parameterType="map"
+		resultType="BoardDto">
 		<include refid="selectFromBoard" />
 		order by reg_date desc, bno desc
 		limit #{pageSize} offset #{offset}
 	</select>
-	
-	<select id="searchResultCnt" parameterType="SearchItem" resultType="int">
+
+	<select id="searchResultCnt" parameterType="SearchItem"
+		resultType="int">
 		select count(*)
 		from t_board
 		where true
-		and title like concat('%', #{keyword},'%')
+		and title like
+		concat('%', #{keyword},'%')
 	</select>
-	
-	<select id="searchSelectPage" parameterType="SearchItem" resultType="BoardDto">
-		select bno, title , "content", writer, view_cnt, comment_cnt , reg_date 
+
+	<select id="searchSelectPage" parameterType="SearchItem"
+		resultType="BoardDto">
+		select bno, title , "content", writer, view_cnt, comment_cnt , reg_date
 		from t_board
-		where true
-		and title like concat('%','#{keyword},'%')
+		where true and title like concat('%',#{keyword},'%')
 		order by reg_date desc, bno desc
 		limit #{pageSize} offset #{offset}
 	</select>
 
 	<update id="increaseViewCnt" parameterType="int">
-		update t_board 
+		update t_board
 		set view_cnt = view_cnt + 1
 		where bno = #{bno}
 	</update>
 
 	<update id="update" parameterType="BoardDto">
-		update public.t_board
-		set title = #{title}, content = #{content}, up_date=now()
-		where bno = #{bno} and writer = #{writer}
+		update t_board
+		set title =
+		#{title}, content = #{content}, up_date=now()
+		where bno = #{bno} and
+		writer = #{writer}
 	</update>
 
 </mapper>

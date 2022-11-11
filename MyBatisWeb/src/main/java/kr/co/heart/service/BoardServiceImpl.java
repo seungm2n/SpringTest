@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.heart.dao.BoardDao;
 import kr.co.heart.domain.BoardDto;
+import kr.co.heart.domain.SearchItem;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -32,7 +33,7 @@ public class BoardServiceImpl implements BoardService {
 		BoardDto boardDto = boardDao.select(bno);
 		// 비즈니스 로직 추가(조회수 증가)
 		boardDao.increaseViewCnt(bno);
-		
+
 		return boardDto;
 	}
 
@@ -44,9 +45,9 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public int write(BoardDto boardDto) throws Exception {
-		
+
 		return boardDao.insert(boardDto);
-		//throw new Exception();				//강제 예외처리
+		// throw new Exception(); //강제 예외처리
 	}
 
 	@Override
@@ -54,5 +55,17 @@ public class BoardServiceImpl implements BoardService {
 		// TODO Auto-generated method stub
 		return boardDao.update(boardDto);
 	}
-	
+
+	@Override
+	public int getSearchResultCnt(SearchItem sc) throws Exception {
+
+		return boardDao.searchResultCnt(sc);
+	}
+
+	@Override
+	public List<BoardDto> getSearchResultPage(SearchItem sc) throws Exception {
+
+		return boardDao.searchSelectPage(sc);
+	}
+
 }
