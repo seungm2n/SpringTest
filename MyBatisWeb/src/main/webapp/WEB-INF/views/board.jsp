@@ -91,13 +91,13 @@
 	<script type="text/javascript">
         $(document).ready(function() {            /* main() */
             $("#listBtn").on("click", function() {
-                location.href ="<c:url value='/board/list?page=${page}&pageSize=${pageSize}' />";
+                location.href ="<c:url value='/board/list${searchItem.queryString}' />";
             })
             $("#removeBtn").on("click", function() {
                 if(!confirm("정말로 삭제하시겠습니까?")) return;
 
                 let form = $("#form")
-                form.attr("action","<c:url value='/board/remove?page=${page}&pageSize=${pageSize}' />")
+                form.attr("action","<c:url value='/board/remove${searchItem.queryString}' />")
                 form.attr("method","post")
                 form.submit()
             })
@@ -141,7 +141,7 @@
                     return;
                 }
                 // 2. 수정상태이면 수정된 내용을 서버로 전송
-                form.attr("action","<c:url value='/board/modify?page=${page}&pageSize=${pageSize}' />")
+                form.attr("action","<c:url value='/board/modify${searchItem.queryString}' />")
                 form.attr("method","post")
                 if(formCheck()){
                     form.submit();

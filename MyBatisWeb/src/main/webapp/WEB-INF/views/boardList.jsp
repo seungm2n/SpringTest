@@ -3,10 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="loginId" value="${sessionScope.id }" />
-<c:set var="loginout"
-	value="${sessionScope.id == null ? 'Login' : 'id:'+=loginId }" />
-<c:set var="loginoutlink"
-	value="${sessionScope.id == null ? '/login/login' : '/login/logout' }" />
+<c:set var="loginout" value="${sessionScope.id == null ? 'Login' : 'id:'+=loginId }" />
+<c:set var="loginoutlink" value="${sessionScope.id == null ? '/login/login' : '/login/logout' }" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -240,7 +238,7 @@ td.title:hover {
 					<tr>
 						<td class="no">${boardDto.bno}</td>
 						<td class="title"><a
-							href="<c:url value="/board/read?${pr.sc.queryString }&bno=${boardDto.bno}" />">
+							href="<c:url value="/board/read${pr.sc.queryString }&bno=${boardDto.bno}" />">
 								${boardDto.title} </a></td>
 						<td class="writer">${boardDto.writer }</td>
 						<%-- <c:choose> --%>
